@@ -1,0 +1,17 @@
+modLoader="javafml" #mandatory
+# A version range to match for said mod loader - for regular FML @Mod it will be the forge version
+loaderVersion="[28,)" #mandatory (28 is current forge version)
+# A list of mods - how many allowed here is determined by the individual mod loader
+[[mods]] #mandatory
+# The modid of the mod
+modId="totemmod" #mandatory
+# The version number of the mod - there's a few well known ${} variables useable here or just hardcode it
+version="0.1" #mandatory
+ # A display name for the mod
+displayName="Wither Skeleton Totems" #mandatory
+# A text field displayed in the mod UI
+authors="Barribob" #optional
+# The description text for the mod (multi line!) (#mandatory)
+description='''
+Adds wither skeleton totems that generate uncommonly in the nether
+'''
