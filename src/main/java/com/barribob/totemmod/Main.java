@@ -2,6 +2,8 @@ package com.barribob.totemmod;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -15,6 +17,7 @@ import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.registries.ObjectHolder;
 
@@ -113,4 +116,14 @@ public class Main {
 		}
 	}
 
+    @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
+    public static class clientStartup
+    {
+	@SubscribeEvent
+	public static void onClientSetup(final FMLClientSetupEvent event)
+	{
+	    RenderTypeLookup.setRenderLayer(ModBlocks.totem_top, RenderType.getTranslucent());
+	    RenderTypeLookup.setRenderLayer(ModBlocks.totem_base, RenderType.getCutout());
+	}
+    }
 }

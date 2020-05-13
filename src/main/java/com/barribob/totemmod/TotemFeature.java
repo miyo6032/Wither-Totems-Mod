@@ -17,7 +17,7 @@ import net.minecraft.world.gen.feature.NoFeatureConfig;
 public class TotemFeature extends Feature<NoFeatureConfig> {
 
 	public TotemFeature(Function<Dynamic<?>, ? extends NoFeatureConfig> configFactoryIn) {
-		super(configFactoryIn, false);
+		super(configFactoryIn);
 	}
 
 	private boolean isValid(IWorld worldIn, BlockPos pos) {
