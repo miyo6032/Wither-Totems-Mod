@@ -48,8 +48,7 @@ public class TotemFeature extends Feature<NoFeatureConfig> {
 			dir = dir.rotateY();
 		}
 
-		worldIn.setBlockState(pos.up(), Main.ModBlocks.totem_top.getDefaultState().with(TotemTop.FACING, dir)
-				.with(TotemTop.TRIGGERED, Boolean.valueOf(true)), 0);
+		worldIn.setBlockState(pos.up(), Main.ModBlocks.totem_top.getDefaultState().with(TotemTop.FACING, dir).with(TotemTop.TRIGGERED, true), 0);
 		worldIn.setBlockState(pos, Main.ModBlocks.totem_base.getDefaultState(), 0);
 		return true;
 	}

@@ -46,14 +46,8 @@ public class Main {
 		@SubscribeEvent
 		public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
 			blockRegistryEvent.getRegistry().registerAll(
-
-					new TotemPedistal(Block.Properties.create(Material.ROCK).hardnessAndResistance(5).harvestLevel(2)
-							.harvestTool(ToolType.PICKAXE)).setRegistryName(TotemConstants.MOD_ID, "totem_base"),
-
-					new TotemTop(Block.Properties.create(Material.ROCK).hardnessAndResistance(5).harvestLevel(2)
-							.harvestTool(ToolType.PICKAXE)).setRegistryName(TotemConstants.MOD_ID, "totem_top")
-
-			);
+					new TotemPedistal(Block.Properties.create(Material.ROCK).hardnessAndResistance(5).harvestLevel(2).harvestTool(ToolType.PICKAXE)).setRegistryName(TotemConstants.MOD_ID, "totem_base"),
+					new TotemTop(Block.Properties.create(Material.ROCK).hardnessAndResistance(5).harvestLevel(2).harvestTool(ToolType.PICKAXE)).setRegistryName(TotemConstants.MOD_ID, "totem_top"));
 		}
 	}
 
@@ -65,8 +59,7 @@ public class Main {
 
 		@SubscribeEvent
 		public static void onTileEntityRegistry(final RegistryEvent.Register<TileEntityType<?>> evt) {
-			evt.getRegistry().registerAll(TileEntityType.Builder.create(TileEntityTotem::new, ModBlocks.totem_top)
-					.build(null).setRegistryName(TotemConstants.MOD_ID, "totem"));
+			evt.getRegistry().registerAll(TileEntityType.Builder.create(TileEntityTotem::new, ModBlocks.totem_top).build(null).setRegistryName(TotemConstants.MOD_ID, "totem"));
 		}
 	}
 
@@ -93,13 +86,8 @@ public class Main {
 		@SubscribeEvent
 		public static void registerItems(RegistryEvent.Register<Item> event) {
 			event.getRegistry().registerAll(
-
-					new BlockItem(ModBlocks.totem_base, new Item.Properties().group(ItemGroup.DECORATIONS))
-							.setRegistryName(TotemConstants.MOD_ID, "totem_base"),
-					new BlockItem(ModBlocks.totem_top, new Item.Properties().group(ItemGroup.DECORATIONS))
-							.setRegistryName(TotemConstants.MOD_ID, "totem_top")
-
-			);
+					new BlockItem(ModBlocks.totem_base, new Item.Properties().group(ItemGroup.DECORATIONS)).setRegistryName(TotemConstants.MOD_ID, "totem_base"),
+					new BlockItem(ModBlocks.totem_top, new Item.Properties().group(ItemGroup.DECORATIONS)).setRegistryName(TotemConstants.MOD_ID, "totem_top"));
 		}
 	}
 
@@ -116,14 +104,12 @@ public class Main {
 		}
 	}
 
-    @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-    public static class clientStartup
-    {
-	@SubscribeEvent
-	public static void onClientSetup(final FMLClientSetupEvent event)
-	{
-	    RenderTypeLookup.setRenderLayer(ModBlocks.totem_top, RenderType.getTranslucent());
-	    RenderTypeLookup.setRenderLayer(ModBlocks.totem_base, RenderType.getCutout());
+	@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
+	public static class clientStartup {
+		@SubscribeEvent
+		public static void onClientSetup(final FMLClientSetupEvent event) {
+			RenderTypeLookup.setRenderLayer(ModBlocks.totem_top, RenderType.getTranslucent());
+			RenderTypeLookup.setRenderLayer(ModBlocks.totem_base, RenderType.getCutout());
+		}
 	}
-    }
 }

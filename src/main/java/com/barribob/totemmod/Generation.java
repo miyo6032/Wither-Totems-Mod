@@ -14,8 +14,9 @@ public class Generation {
 				continue;
 			}
 
-			biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION,
-		    Main.ModFeatures.totem.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.CHANCE_HEIGHTMAP.configure(new ChanceConfig(100))));
+			biome.addFeature(
+					GenerationStage.Decoration.VEGETAL_DECORATION,
+					Main.ModFeatures.totem.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.CHANCE_HEIGHTMAP.configure(new ChanceConfig(100))));
 		}
 	}
 }

@@ -20,7 +20,6 @@ public class TileEntityTotem extends TileEntity implements ITickableTileEntity {
 
 	@Override
 	public void tick() {
-
 		if (!this.getBlockState().get(TotemTop.TRIGGERED)) {
 			return;
 		}
@@ -41,5 +40,4 @@ public class TileEntityTotem extends TileEntity implements ITickableTileEntity {
 			}
 		}
 	}
-
 }

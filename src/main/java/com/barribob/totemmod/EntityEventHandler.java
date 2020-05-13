@@ -16,8 +16,7 @@ public class EntityEventHandler {
 		if (event.getEntityLiving() != null) {
 			LivingEntity entity = event.getEntityLiving();
 			if (entity.isPotionActive(ModPotions.loot)) {
-				event.setLootingLevel(
-						event.getLootingLevel() + entity.getActivePotionEffect(ModPotions.loot).getAmplifier() + 1);
+				event.setLootingLevel(event.getLootingLevel() + entity.getActivePotionEffect(ModPotions.loot).getAmplifier() + 1);
 			}
 		}
 	}
