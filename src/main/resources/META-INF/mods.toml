@@ -6,12 +6,13 @@ loaderVersion="[28,)" #mandatory (28 is current forge version)
 # The modid of the mod
 modId="totemmod" #mandatory
 # The version number of the mod - there's a few well known ${} variables useable here or just hardcode it
-version="0.1" #mandatory
+version="0.2" #mandatory
  # A display name for the mod
 displayName="Wither Skeleton Totems" #mandatory
 # A text field displayed in the mod UI
 authors="Barribob" #optional
 # The description text for the mod (multi line!) (#mandatory)
 description='''
-Adds wither skeleton totems that generate uncommonly in the nether
-'''
+Adds totems that increase loot and increase danger.'''
+logoFile="icon.png"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/wither-totem"
