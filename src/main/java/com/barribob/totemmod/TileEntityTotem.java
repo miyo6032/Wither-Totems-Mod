@@ -2,8 +2,10 @@ package com.barribob.totemmod;
 
 import java.util.List;
 
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.monster.WitherSkeletonEntity;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.monster.IMob;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.tileentity.ITickableTileEntity;
@@ -32,11 +34,14 @@ public class TileEntityTotem extends TileEntity implements ITickableTileEntity {
 		tickCounter = 19;
 
 		AxisAlignedBB box = new AxisAlignedBB(pos).grow(15);
-		List<MobEntity> mobs = this.world.getEntitiesWithinAABB(MobEntity.class, box);
-		for (MobEntity mob : mobs) {
-			if (mob instanceof WitherSkeletonEntity) {
-				mob.addPotionEffect(new EffectInstance(Main.ModPotions.loot, 40, 1));
-				mob.addPotionEffect(new EffectInstance(Effects.STRENGTH, 40, 1));
+		List<Entity> mobs = this.world.getEntitiesWithinAABB(Entity.class, box);
+		for (Entity mob : mobs) {
+			if (mob instanceof IMob && mob instanceof LivingEntity) {
+				((LivingEntity) mob).addPotionEffect(new EffectInstance(Effects.STRENGTH, 40, 1));
+				((LivingEntity) mob).addPotionEffect(new EffectInstance(Effects.SPEED, 40, 0));
+			}
+			else if (mob instanceof PlayerEntity) {
+				((PlayerEntity) mob).addPotionEffect(new EffectInstance(Main.ModPotions.looting, 100, 1));
 			}
 		}
 	}

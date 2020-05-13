@@ -1,4 +1,5 @@
 {
 	"block.totemmod.totem_base": "Totem Pedistal",
-	"block.totemmod.totem_top": "Wither Skeleton Totem"
+	"block.totemmod.totem_top": "Wither Skeleton Totem",
+	"effect.totemmod.looting": "Looting"
 }

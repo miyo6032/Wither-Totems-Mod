@@ -67,12 +67,12 @@ public class Main {
 	@ObjectHolder(TotemConstants.MOD_ID)
 	public static class ModPotions {
 
-		public static final Effect loot = null;
+		public static final Effect looting = null;
 
 		@SubscribeEvent
 		public static void onTileEntityRegistry(final RegistryEvent.Register<Effect> evt) {
 			evt.getRegistry().registerAll(
-					new LootEffect(EffectType.HARMFUL, 65506).setRegistryName(TotemConstants.MOD_ID, "loot"));
+					new LootEffect(EffectType.HARMFUL, 65506).setRegistryName(TotemConstants.MOD_ID, "looting"));
 		}
 	}
 
