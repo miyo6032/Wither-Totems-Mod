@@ -19,7 +19,7 @@ import net.minecraft.world.World;
 
 public class TotemPedistal extends Block {
 	protected static VoxelShape BOTTOM_TOTEM_SHAPE = Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 2.0D, 16.0D);
-	protected static VoxelShape TOP_TOTEM_SHAPE = Block.makeCuboidShape(4.0D, 2.0D, 4.0D, 12.0D, 16.0D, 12.0D);
+	protected static VoxelShape TOP_TOTEM_SHAPE = Block.makeCuboidShape(5.0D, 2.0D, 5.0D, 11.0D, 16.0D, 11.0D);
 	protected static VoxelShape TOTEM_SHAPE = VoxelShapes.or(BOTTOM_TOTEM_SHAPE, TOP_TOTEM_SHAPE);
 
 	public TotemPedistal(Properties properties) {

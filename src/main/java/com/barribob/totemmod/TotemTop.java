@@ -22,6 +22,7 @@ import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -32,7 +33,9 @@ public class TotemTop extends Block {
 
 	public static final BooleanProperty TRIGGERED = BlockStateProperties.TRIGGERED;
 	public static DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
-	protected static VoxelShape TOTEM_SHAPE = Block.makeCuboidShape(4.0D, 0.0D, 4.0D, 12.0D, 15.0D, 12.0D);
+	protected static VoxelShape TOTEM_HEAD = Block.makeCuboidShape(4.0D, 8.0D, 4.0D, 12.0D, 16.0D, 12.0D);
+	protected static VoxelShape TOTEM_NECK = Block.makeCuboidShape(5.0D, 0.0D, 5.0D, 11.0D, 8.0D, 11.0D);
+	protected static VoxelShape TOTEM_SHAPE = VoxelShapes.or(TOTEM_HEAD, TOTEM_NECK);
 
 	public TotemTop(Properties properties) {
 		super(properties);
