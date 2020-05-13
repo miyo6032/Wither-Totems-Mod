@@ -46,8 +46,8 @@ public class Main {
 		@SubscribeEvent
 		public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
 			blockRegistryEvent.getRegistry().registerAll(
-					new TotemPedistal(Block.Properties.create(Material.ROCK).hardnessAndResistance(5).harvestLevel(2).harvestTool(ToolType.PICKAXE)).setRegistryName(TotemConstants.MOD_ID, "totem_base"),
-					new TotemTop(Block.Properties.create(Material.ROCK).hardnessAndResistance(5).harvestLevel(2).harvestTool(ToolType.PICKAXE)).setRegistryName(TotemConstants.MOD_ID, "totem_top"));
+					new TotemPedistal(Block.Properties.create(Material.ROCK).hardnessAndResistance(1.5f, 10f).harvestLevel(2).harvestTool(ToolType.PICKAXE)).setRegistryName(TotemConstants.MOD_ID, "totem_base"),
+					new TotemTop(Block.Properties.create(Material.ROCK).hardnessAndResistance(1.5f, 10f).harvestLevel(2).harvestTool(ToolType.PICKAXE)).setRegistryName(TotemConstants.MOD_ID, "totem_top"));
 		}
 	}
 

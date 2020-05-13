@@ -1,12 +1,19 @@
 package com.barribob.totemmod;
 
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
@@ -30,5 +37,13 @@ public class TotemPedistal extends Block {
 			worldIn.destroyBlock(pos.up(), true);
 		}
 		super.onBlockHarvested(worldIn, pos, state, player);
+	}
+
+	@Override
+	public void addInformation(ItemStack stack, IBlockReader worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+		tooltip.add(new TranslationTextComponent("block.totemmod.tooltip_1").applyTextStyle(TextFormatting.GRAY));
+		tooltip.add(new TranslationTextComponent("block.totemmod.tooltip_2").applyTextStyle(TextFormatting.GRAY));
+		tooltip.add(new TranslationTextComponent("block.totemmod.tooltip_3").applyTextStyle(TextFormatting.GRAY));
+		super.addInformation(stack, worldIn, tooltip, flagIn);
 	}
 }
