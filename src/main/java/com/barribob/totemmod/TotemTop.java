@@ -31,8 +31,7 @@ public class TotemTop extends Block {
 
 	public TotemTop(Properties properties) {
 		super(properties);
-		this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH).with(TRIGGERED,
-				Boolean.valueOf(false)));
+	this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH).with(TRIGGERED, false));
 	}
 
 	@Override
@@ -42,9 +41,7 @@ public class TotemTop extends Block {
 
 	@Override
 	public BlockState getStateForPlacement(BlockItemUseContext context) {
-		return this.getDefaultState().with(FACING, context.getPlacementHorizontalFacing().getOpposite()).with(TRIGGERED,
-				Boolean.valueOf(false));
-
+	return this.getDefaultState().with(FACING, context.getPlacementHorizontalFacing().getOpposite()).with(TRIGGERED, false);
 	}
 
 	@Deprecated
@@ -77,9 +74,9 @@ public class TotemTop extends Block {
 	public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
 			boolean isMoving) {
 		if (worldIn.getBlockState(pos.down()).getBlock().equals(Main.ModBlocks.totem_base)) {
-			worldIn.setBlockState(pos, state.with(TRIGGERED, Boolean.valueOf(true)));
+	    worldIn.setBlockState(pos, state.with(TRIGGERED, true));
 		} else {
-			worldIn.setBlockState(pos, state.with(TRIGGERED, Boolean.valueOf(false)));
+	    worldIn.setBlockState(pos, state.with(TRIGGERED, false));
 		}
 	}
 
