@@ -105,9 +105,9 @@ public class TotemTop extends Block {
 
 	@Override
 	public void addInformation(ItemStack stack, IBlockReader worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-		tooltip.add(new TranslationTextComponent("block.totemmod.tooltip_1").applyTextStyle(TextFormatting.GRAY));
-		tooltip.add(new TranslationTextComponent("block.totemmod.tooltip_2").applyTextStyle(TextFormatting.GRAY));
-		tooltip.add(new TranslationTextComponent("block.totemmod.tooltip_3").applyTextStyle(TextFormatting.GRAY));
+		tooltip.add(new TranslationTextComponent("block.totemmod.tooltip_1").mergeStyle(TextFormatting.GRAY));
+		tooltip.add(new TranslationTextComponent("block.totemmod.tooltip_2").mergeStyle(TextFormatting.GRAY));
+		tooltip.add(new TranslationTextComponent("block.totemmod.tooltip_3").mergeStyle(TextFormatting.GRAY));
 		super.addInformation(stack, worldIn, tooltip, flagIn);
 	}
 }

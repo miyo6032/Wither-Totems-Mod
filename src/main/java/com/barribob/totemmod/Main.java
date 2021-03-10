@@ -10,30 +10,27 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectType;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.ObjectHolder;
 
 @Mod(value = TotemConstants.MOD_ID)
 public class Main {
 
 	public Main() {
-		MinecraftForge.EVENT_BUS.register(this);
-	}
+		IEventBus eventBus = MinecraftForge.EVENT_BUS;
+		IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-	@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-	public static class serverStartup {
-		@SubscribeEvent
-		public static void onCommonSetup(final FMLCommonSetupEvent event) {
-			Generation.setupOreGen();
-		}
+		modEventBus.addListener(ModConfiguredFeatures::setupFeatures);
+		eventBus.register(this);
+		eventBus.addListener(ModConfiguredFeatures::modifyBiomes);
+		ModFeatures.FEATURES.register(modEventBus);
 	}
 
 	@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -88,19 +85,6 @@ public class Main {
 			event.getRegistry().registerAll(
 					new BlockItem(ModBlocks.totem_base, new Item.Properties().group(ItemGroup.DECORATIONS)).setRegistryName(TotemConstants.MOD_ID, "totem_base"),
 					new BlockItem(ModBlocks.totem_top, new Item.Properties().group(ItemGroup.DECORATIONS)).setRegistryName(TotemConstants.MOD_ID, "totem_top"));
-		}
-	}
-
-	@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-	@ObjectHolder(TotemConstants.MOD_ID)
-	public static class ModFeatures {
-
-		public static final Feature<NoFeatureConfig> totem = null;
-
-		@SubscribeEvent
-		public static void onFeatureRegistry(final RegistryEvent.Register<Feature<?>> evt) {
-			evt.getRegistry().registerAll(
-					new TotemFeature(NoFeatureConfig::deserialize).setRegistryName(TotemConstants.MOD_ID, "totem"));
 		}
 	}
 
