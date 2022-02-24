@@ -1,113 +1,119 @@
 package com.barribob.totemmod;
 
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.DustParticleOptions;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.List;
 import java.util.Random;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.HorizontalBlock;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.particles.RedstoneParticleData;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.DirectionProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Mirror;
-import net.minecraft.util.Rotation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
-
-public class TotemTop extends Block {
+public class TotemTop extends BaseEntityBlock {
 
 	public static final BooleanProperty TRIGGERED = BlockStateProperties.TRIGGERED;
-	public static DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
-	protected static VoxelShape TOTEM_HEAD = Block.makeCuboidShape(4.0D, 8.0D, 4.0D, 12.0D, 16.0D, 12.0D);
-	protected static VoxelShape TOTEM_NECK = Block.makeCuboidShape(5.0D, 0.0D, 5.0D, 11.0D, 8.0D, 11.0D);
-	protected static VoxelShape TOTEM_SHAPE = VoxelShapes.or(TOTEM_HEAD, TOTEM_NECK);
+	public static DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
+	protected static VoxelShape TOTEM_HEAD = Block.box(4.0D, 8.0D, 4.0D, 12.0D, 16.0D, 12.0D);
+	protected static VoxelShape TOTEM_NECK = Block.box(5.0D, 0.0D, 5.0D, 11.0D, 8.0D, 11.0D);
+	protected static VoxelShape TOTEM_SHAPE = Shapes.or(TOTEM_HEAD, TOTEM_NECK);
 
 	public TotemTop(Properties properties) {
 		super(properties);
-		this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH).with(TRIGGERED, false));
+		this.registerDefaultState(this.defaultBlockState().setValue(FACING, Direction.NORTH).setValue(TRIGGERED, false));
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+	public RenderShape getRenderShape(BlockState p_49232_) {
+		return RenderShape.MODEL;
+	}
+
+	@Override
+	public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
 		return TOTEM_SHAPE;
 	}
 
 	@Override
-	public BlockState getStateForPlacement(BlockItemUseContext context) {
-		return this.getDefaultState().with(FACING, context.getPlacementHorizontalFacing().getOpposite()).with(TRIGGERED, false);
+	public BlockState getStateForPlacement(BlockPlaceContext context) {
+		return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite()).setValue(TRIGGERED, false);
 	}
 
 	@Deprecated
 	@Override
 	public BlockState rotate(BlockState state, Rotation rot) {
-		return state.with(FACING, rot.rotate(state.get(FACING)));
+		return state.setValue(FACING, rot.rotate(state.getValue(FACING)));
 	}
 
 	@Deprecated
 	@Override
 	public BlockState mirror(BlockState state, Mirror mirrorIn) {
-		return state.rotate(mirrorIn.toRotation(state.get(FACING)));
+		return state.rotate(mirrorIn.getRotation(state.getValue(FACING)));
 	}
 
 	@Override
-	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-		builder.add(FACING, TRIGGERED);
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> p_49915_) {
+		p_49915_.add(FACING, TRIGGERED);
 	}
 
 	@Override
-	public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
-		if (worldIn.getBlockState(pos).get(TRIGGERED)) {
-			worldIn.addParticle(new RedstoneParticleData(0.65f + 0.25f * rand.nextFloat(), 0, 0, 1.0F),
+	public void animateTick(BlockState stateIn, Level worldIn, BlockPos pos, Random rand) {
+		if (worldIn.getBlockState(pos).getValue(TRIGGERED)) {
+			worldIn.addParticle(DustParticleOptions.REDSTONE,
 					pos.getX() + rand.nextFloat(), pos.getY() + rand.nextFloat(), pos.getZ() + rand.nextFloat(), 0.0D,
 					0.0D, 0.0D);
 		}
 	}
 
 	@Override
-	public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
-		if (worldIn.getBlockState(pos.down()).getBlock().equals(Main.ModBlocks.totem_base)) {
-			worldIn.setBlockState(pos, state.with(TRIGGERED, true));
+	public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
+		if (worldIn.getBlockState(pos.below()).getBlock().equals(Main.ModBlocks.totem_base)) {
+			worldIn.setBlock(pos, state.setValue(TRIGGERED, true), 2);
 		}
 		else {
-			worldIn.setBlockState(pos, state.with(TRIGGERED, false));
+			worldIn.setBlock(pos, state.setValue(TRIGGERED, false), 2);
 		}
 	}
 
 	@Override
-	public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
+	public void onPlace(BlockState state, Level worldIn, BlockPos pos, BlockState state2, boolean flag) {
 		neighborChanged(state, worldIn, pos, null, null, false);
 	}
 
+	@Nullable
 	@Override
-	public boolean hasTileEntity(BlockState state) {
-		return true;
+	public BlockEntity newBlockEntity(BlockPos p_153215_, BlockState p_153216_) {
+		return new TileEntityTotem(p_153215_, p_153216_);
 	}
 
 	@Override
-	public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-		return new TileEntityTotem();
+	public void appendHoverText(ItemStack stack, BlockGetter worldIn, List<Component> tooltip, TooltipFlag flagIn) {
+		tooltip.add(new TranslatableComponent("block.totemmod.tooltip_1").withStyle(ChatFormatting.GRAY));
+		tooltip.add(new TranslatableComponent("block.totemmod.tooltip_2").withStyle(ChatFormatting.GRAY));
+		tooltip.add(new TranslatableComponent("block.totemmod.tooltip_3").withStyle(ChatFormatting.GRAY));
+		super.appendHoverText(stack, worldIn, tooltip, flagIn);
 	}
 
+	@Nullable
 	@Override
-	public void addInformation(ItemStack stack, IBlockReader worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-		tooltip.add(new TranslationTextComponent("block.totemmod.tooltip_1").mergeStyle(TextFormatting.GRAY));
-		tooltip.add(new TranslationTextComponent("block.totemmod.tooltip_2").mergeStyle(TextFormatting.GRAY));
-		tooltip.add(new TranslationTextComponent("block.totemmod.tooltip_3").mergeStyle(TextFormatting.GRAY));
-		super.addInformation(stack, worldIn, tooltip, flagIn);
+	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level p_153212_, BlockState p_153213_, BlockEntityType<T> p_153214_) {
+		return createTickerHelper(p_153214_, Main.ModTileEntities.totem, TileEntityTotem::tick);
 	}
 }
