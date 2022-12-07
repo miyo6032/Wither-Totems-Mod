@@ -26,7 +26,6 @@ public class Main {
 		IEventBus eventBus = MinecraftForge.EVENT_BUS;
 		IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-		modEventBus.addListener(ModConfiguredFeatures::setupFeatures);
 		eventBus.register(this);
 		eventBus.addListener(ModConfiguredFeatures::modifyBiomes);
 		ModFeatures.FEATURES.register(modEventBus);
