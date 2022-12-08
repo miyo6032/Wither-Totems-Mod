@@ -3,7 +3,6 @@ package com.barribob.totemmod;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -34,7 +33,7 @@ public class TotemPedistal extends Block {
 
 	@Override
 	public boolean onDestroyedByPlayer(BlockState state, Level world, BlockPos pos, Player player, boolean willHarvest, FluidState fluid) {
-		if (world.getBlockState(pos.above()).getBlock().equals(Main.ModBlocks.totem_top)) {
+		if (world.getBlockState(pos.above()).getBlock().equals(Main.ModBlocks.TOTEM_TOP.get())) {
 			world.destroyBlock(pos.above(), true);
 		}
 		return super.onDestroyedByPlayer(state, world, pos, player, willHarvest, fluid);
@@ -42,9 +41,9 @@ public class TotemPedistal extends Block {
 
 	@Override
 	public void appendHoverText(ItemStack stack, BlockGetter worldIn, List<Component> tooltip, TooltipFlag flagIn) {
-		tooltip.add(new TranslatableComponent("block.totemmod.tooltip_1").withStyle(ChatFormatting.GRAY));
-		tooltip.add(new TranslatableComponent("block.totemmod.tooltip_2").withStyle(ChatFormatting.GRAY));
-		tooltip.add(new TranslatableComponent("block.totemmod.tooltip_3").withStyle(ChatFormatting.GRAY));
+		tooltip.add(Component.translatable("block.totemmod.tooltip_1").withStyle(ChatFormatting.GRAY));
+		tooltip.add(Component.translatable("block.totemmod.tooltip_2").withStyle(ChatFormatting.GRAY));
+		tooltip.add(Component.translatable("block.totemmod.tooltip_3").withStyle(ChatFormatting.GRAY));
 		super.appendHoverText(stack, worldIn, tooltip, flagIn);
 	}
 }

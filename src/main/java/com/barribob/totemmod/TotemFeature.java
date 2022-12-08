@@ -3,6 +3,7 @@ package com.barribob.totemmod;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
@@ -21,7 +22,7 @@ public class TotemFeature extends Feature<NoneFeatureConfiguration> {
 		return isSolidBlock && reader.isEmptyBlock(pos) && reader.isEmptyBlock(pos.above());
 	}
 
-	public boolean generate(WorldGenLevel reader, Random rand, BlockPos pos) {
+	public boolean generate(WorldGenLevel reader, RandomSource rand, BlockPos pos) {
 		pos = new BlockPos(pos.getX(), 120, pos.getZ());
 
 		// Keep moving down until we find a valid position to place the totem
@@ -39,8 +40,8 @@ public class TotemFeature extends Feature<NoneFeatureConfiguration> {
 			dir = dir.getClockWise();
 		}
 
-		reader.setBlock(pos.above(), Main.ModBlocks.totem_top.defaultBlockState().setValue(TotemTop.FACING, dir).setValue(TotemTop.TRIGGERED, true), 0);
-		reader.setBlock(pos, Main.ModBlocks.totem_base.defaultBlockState(), 0);
+		reader.setBlock(pos.above(), Main.ModBlocks.TOTEM_TOP.get().defaultBlockState().setValue(TotemTop.FACING, dir).setValue(TotemTop.TRIGGERED, true), 0);
+		reader.setBlock(pos, Main.ModBlocks.TOTEM_BASE.get().defaultBlockState(), 0);
 		return true;
 	}
 

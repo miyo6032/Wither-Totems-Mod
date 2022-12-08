@@ -12,15 +12,14 @@ import net.minecraft.world.level.levelgen.placement.BiomeFilter;
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
-import net.minecraftforge.event.world.BiomeLoadingEvent;
 
 public class ModConfiguredFeatures {
     static Holder<ConfiguredFeature<NoneFeatureConfiguration, ?>> configuredFeature = FeatureUtils.register(new ResourceLocation(TotemConstants.MOD_ID, "configured_totem").toString(), ModFeatures.totem.get());
     static Holder<PlacedFeature> placedFeature = PlacementUtils.register(new ResourceLocation(TotemConstants.MOD_ID, "placed_totem").toString(), configuredFeature, RarityFilter.onAverageOnceEvery(100), InSquarePlacement.spread(), BiomeFilter.biome());
 
-    public static void modifyBiomes(final BiomeLoadingEvent event) {
-        if (event.getCategory() == Biome.BiomeCategory.NETHER) {
-            event.getGeneration().getFeatures(GenerationStep.Decoration.SURFACE_STRUCTURES).add(placedFeature);
-        }
-    }
+//    public static void modifyBiomes(final BiomeLoadingEvent event) {
+//        if (event.getCategory() == Biome.BiomeCategory.NETHER) {
+//            event.getGeneration().getFeatures(GenerationStep.Decoration.SURFACE_STRUCTURES).add(placedFeature);
+//        }
+//    }
 }

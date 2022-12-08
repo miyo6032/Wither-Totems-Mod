@@ -1,5 +1,6 @@
 {
 	"credit": "Made with Blockbench",
+	"render_type" : "translucent",
 	"textures": {
 		"3": "totemmod:block/eyes",
 		"4": "totemmod:block/totem_top",

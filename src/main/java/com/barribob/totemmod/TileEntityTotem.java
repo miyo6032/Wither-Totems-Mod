@@ -19,7 +19,7 @@ public class TileEntityTotem extends BlockEntity {
 	int tickCounter = 0;
 
 	public TileEntityTotem(BlockPos p_155229_, BlockState p_155230_) {
-		super(Main.ModTileEntities.totem, p_155229_, p_155230_);
+		super(Main.ModTileEntities.TOTEM.get(), p_155229_, p_155230_);
 	}
 
 	public static void tick(Level level, BlockPos pos, BlockState state, TileEntityTotem blockEntity) {
@@ -42,7 +42,7 @@ public class TileEntityTotem extends BlockEntity {
 				((LivingEntity) mob).addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 40, 0));
 			}
 			else if (mob instanceof Player) {
-				((Player) mob).addEffect(new MobEffectInstance(Main.ModPotions.looting, 100, 1));
+				((Player) mob).addEffect(new MobEffectInstance(Main.ModPotions.LOOTING.get(), 100, 1));
 			}
 		}
 	}

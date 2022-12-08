@@ -5,7 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -74,7 +74,7 @@ public class TotemTop extends BaseEntityBlock {
 	}
 
 	@Override
-	public void animateTick(BlockState stateIn, Level worldIn, BlockPos pos, Random rand) {
+	public void animateTick(BlockState p_220827_, Level worldIn, BlockPos pos, RandomSource rand) {
 		if (worldIn.getBlockState(pos).getValue(TRIGGERED)) {
 			worldIn.addParticle(DustParticleOptions.REDSTONE,
 					pos.getX() + rand.nextFloat(), pos.getY() + rand.nextFloat(), pos.getZ() + rand.nextFloat(), 0.0D,
@@ -84,7 +84,7 @@ public class TotemTop extends BaseEntityBlock {
 
 	@Override
 	public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
-		if (worldIn.getBlockState(pos.below()).getBlock().equals(Main.ModBlocks.totem_base)) {
+		if (worldIn.getBlockState(pos.below()).getBlock().equals(Main.ModBlocks.TOTEM_BASE.get())) {
 			worldIn.setBlock(pos, state.setValue(TRIGGERED, true), 2);
 		}
 		else {
@@ -105,15 +105,15 @@ public class TotemTop extends BaseEntityBlock {
 
 	@Override
 	public void appendHoverText(ItemStack stack, BlockGetter worldIn, List<Component> tooltip, TooltipFlag flagIn) {
-		tooltip.add(new TranslatableComponent("block.totemmod.tooltip_1").withStyle(ChatFormatting.GRAY));
-		tooltip.add(new TranslatableComponent("block.totemmod.tooltip_2").withStyle(ChatFormatting.GRAY));
-		tooltip.add(new TranslatableComponent("block.totemmod.tooltip_3").withStyle(ChatFormatting.GRAY));
+		tooltip.add(Component.translatable("block.totemmod.tooltip_1").withStyle(ChatFormatting.GRAY));
+		tooltip.add(Component.translatable("block.totemmod.tooltip_2").withStyle(ChatFormatting.GRAY));
+		tooltip.add(Component.translatable("block.totemmod.tooltip_3").withStyle(ChatFormatting.GRAY));
 		super.appendHoverText(stack, worldIn, tooltip, flagIn);
 	}
 
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level p_153212_, BlockState p_153213_, BlockEntityType<T> p_153214_) {
-		return createTickerHelper(p_153214_, Main.ModTileEntities.totem, TileEntityTotem::tick);
+		return createTickerHelper(p_153214_, Main.ModTileEntities.TOTEM.get(), TileEntityTotem::tick);
 	}
 }

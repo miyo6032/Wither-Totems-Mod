@@ -1,7 +1,6 @@
 package com.barribob.totemmod;
 
 import com.barribob.totemmod.Main.ModPotions;
-
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.event.entity.living.LootingLevelEvent;
@@ -18,8 +17,8 @@ public class EntityEventHandler {
 	public static void dropItems(LootingLevelEvent event) {
 		if (event.getDamageSource() != null && event.getDamageSource().getEntity() != null) {
 			Entity killer = event.getDamageSource().getEntity();
-			if (killer instanceof LivingEntity && ((LivingEntity) killer).hasEffect(ModPotions.looting)) {
-				event.setLootingLevel(event.getLootingLevel() + ((LivingEntity) killer).getEffect(ModPotions.looting).getAmplifier() + 1);
+			if (killer instanceof LivingEntity && ((LivingEntity) killer).hasEffect(ModPotions.LOOTING.get())) {
+				event.setLootingLevel(event.getLootingLevel() + ((LivingEntity) killer).getEffect(ModPotions.LOOTING.get()).getAmplifier() + 1);
 			}
 		}
 	}

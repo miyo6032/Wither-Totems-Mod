@@ -1,5 +1,6 @@
 {
 	"credit": "Made with Blockbench",
+	"render_type" : "cutout",
 	"textures": {
 		"4": "totemmod:block/totem_base",
 		"particle": "totemmod:block/totem_base"
